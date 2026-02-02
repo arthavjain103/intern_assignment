@@ -51,6 +51,8 @@ TEMPLATES = [{
     },
 }]
 
+
+STATIC_URL = '/static/'
 WSGI_APPLICATION = 'project.wsgi.application'
 
 DATABASES = {
@@ -69,6 +71,7 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Serve frontend static files (use dist when available after build)
 STATICFILES_DIRS = [str(FRONTEND_DIST_DIR) if FRONTEND_DIST_DIR.exists() else str(FRONTEND_DIR)]
