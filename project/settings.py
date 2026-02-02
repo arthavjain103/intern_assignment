@@ -47,7 +47,29 @@ TEMPLATES = [{
         ],
     },
 }]
+# React build folder
+FRONTEND_DIR = os.path.join(BASE_DIR, 'frontend', 'build')
 
+TEMPLATES = [{
+    'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    'DIRS': [FRONTEND_DIR],  # <-- point to React build
+    'APP_DIRS': True,
+    'OPTIONS': {
+        'context_processors': [
+            'django.template.context_processors.debug',
+            'django.template.context_processors.request',
+            'django.contrib.auth.context_processors.auth',
+            'django.contrib.messages.context_processors.messages',
+        ],
+    },
+}]
+
+# Static files
+STATICFILES_DIRS = [
+    os.path.join(FRONTEND_DIR, 'static'),  # <-- React static files
+]
+
+STATIC_URL = '/static/'
 WSGI_APPLICATION = 'project.wsgi.application'
 
 DATABASES = {
