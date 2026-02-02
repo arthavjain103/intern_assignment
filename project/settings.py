@@ -4,6 +4,9 @@ from datetime import timedelta
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# frontend build folders
+FRONTEND_DIR = BASE_DIR / 'frontend'
+FRONTEND_DIST_DIR = FRONTEND_DIR / 'dist'
 SECRET_KEY = 'dev-key-12345'
 DEBUG = True
 
@@ -36,7 +39,7 @@ ROOT_URLCONF = 'project.urls'
 
 TEMPLATES = [{
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
-    'DIRS': [],
+    'DIRS': [str(FRONTEND_DIST_DIR) if FRONTEND_DIST_DIR.exists() else str(FRONTEND_DIR)],
     'APP_DIRS': True,
     'OPTIONS': {
         'context_processors': [
@@ -67,6 +70,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# Serve frontend static files (use dist when available after build)
+STATICFILES_DIRS = [str(FRONTEND_DIST_DIR) if FRONTEND_DIST_DIR.exists() else str(FRONTEND_DIR)]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://127.0.0.1:3000',

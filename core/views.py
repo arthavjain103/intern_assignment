@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import get_user_model, authenticate
+from django.shortcuts import render
 
 from .models import Post, Comment, PostLike, CommentLike
 from .serializers import PostSerializer, CommentSerializer, RegisterSerializer, UserSerializer
@@ -200,3 +201,8 @@ class LeaderboardAPIView(APIView):
             rows = cursor.fetchall()
         result = [{'user_id': r[0], 'username': r[1], 'karma': int(r[2])} for r in rows]
         return Response(result)
+
+
+def index(request, path=''):
+    """Render the frontend index.html for root and SPA routes."""
+    return render(request, 'index.html')
